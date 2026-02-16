@@ -355,7 +355,6 @@
             border: 4px solid rgba(20, 20, 20, 0.9);
             background: #747f8d;
             z-index: 2;
-            transition: background 0.3s ease;
         }
         
         .status-indicator.online {
@@ -421,7 +420,6 @@
             color: #888;
             margin-bottom: 15px;
             min-height: 20px;
-            transition: opacity 0.3s ease;
         }
         
         .discord-badges {
@@ -1570,7 +1568,6 @@
 
 
             const DISCORD_ID = '1070769895589019780';
-            let previousData = null;
 
             async function updateDiscordStatus() {
                 try {
@@ -1580,187 +1577,181 @@
                     if (data.success) {
                         const discord = data.data;
 
-                        // Check if status changed
-                        const statusChanged = !previousData || previousData.discord_status !== discord.discord_status;
-                        const activitiesChanged = !previousData ||
-                            JSON.stringify(previousData.activities) !== JSON.stringify(discord.activities);
-                        const spotifyChanged = !previousData ||
-                            previousData.listening_to_spotify !== discord.listening_to_spotify;
 
-                        if (statusChanged || activitiesChanged || spotifyChanged || !previousData) {
+                        const avatarUrl = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${discord.discord_user.avatar}.${discord.discord_user.avatar.startsWith('a_') ? 'gif' : 'png'}?size=256`;
+                        const avatarImg = document.createElement('img');
+                        avatarImg.src = avatarUrl;
+                        avatarImg.alt = 'Discord Avatar';
 
-                            const avatarUrl = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${discord.discord_user.avatar}.${discord.discord_user.avatar.startsWith('a_') ? 'gif' : 'png'}?size=256`;
-                            const avatarContainer = document.getElementById('discordAvatar');
-
-                            if (!previousData) {
-                                const avatarImg = document.createElement('img');
-                                avatarImg.src = avatarUrl;
-                                avatarImg.alt = 'Discord Avatar';
-                                avatarContainer.innerHTML = '';
-                                avatarContainer.appendChild(avatarImg);
-                            }
+                        const avatarContainer = document.getElementById('discordAvatar');
+                        avatarContainer.innerHTML = '';
+                        avatarContainer.appendChild(avatarImg);
 
 
-                            const statusIndicator = document.getElementById('statusIndicator') || document.createElement('div');
-                            statusIndicator.className = `status-indicator ${discord.discord_status}`;
-                            statusIndicator.id = 'statusIndicator';
-
-                            if (!document.getElementById('statusIndicator')) {
-                                avatarContainer.appendChild(statusIndicator);
-                            }
+                        const statusIndicator = document.createElement('div');
+                        statusIndicator.className = `status-indicator ${discord.discord_status}`;
+                        statusIndicator.id = 'statusIndicator';
+                        avatarContainer.appendChild(statusIndicator);
 
 
-                            if (!previousData) {
-                                const displayName = discord.discord_user.global_name || discord.discord_user.username;
-                                document.getElementById('discordDisplayName').textContent = displayName;
-                                document.getElementById('discordUsername').textContent = `@${discord.discord_user.username}`;
-                            }
+                        const displayName = discord.discord_user.global_name || discord.discord_user.username;
+                        document.getElementById('discordDisplayName').textContent = displayName;
+                        document.getElementById('discordUsername').textContent = `@${discord.discord_user.username}`;
 
 
-                            const customStatusEl = document.getElementById('customStatus');
-                            const customStatusActivity = discord.activities.find(a => a.type === 4);
+                        const customStatusEl = document.getElementById('customStatus');
+                        const customStatusActivity = discord.activities.find(a => a.type === 4);
 
-                            if (customStatusActivity) {
-                                let statusHTML = '';
-                                if (customStatusActivity.emoji) {
-                                    if (customStatusActivity.emoji.id) {
-                                        statusHTML += `<img class="emoji" src="https://cdn.discordapp.com/emojis/${customStatusActivity.emoji.id}.${customStatusActivity.emoji.animated ? 'gif' : 'png'}?size=24" alt="emoji">`;
-                                    } else {
-                                        statusHTML += `<span class="emoji">${customStatusActivity.emoji.name}</span>`;
-                                    }
+                        if (customStatusActivity) {
+                            let statusHTML = '';
+                            if (customStatusActivity.emoji) {
+                                if (customStatusActivity.emoji.id) {
+                                    statusHTML += `<img class="emoji" src="https://cdn.discordapp.com/emojis/${customStatusActivity.emoji.id}.${customStatusActivity.emoji.animated ? 'gif' : 'png'}?size=24" alt="emoji">`;
+                                } else {
+                                    statusHTML += `<span class="emoji">${customStatusActivity.emoji.name}</span>`;
                                 }
-                                statusHTML += `<span>${customStatusActivity.state || ''}</span>`;
-                                customStatusEl.innerHTML = statusHTML;
-                                customStatusEl.style.display = 'flex';
-                            } else {
-                                customStatusEl.style.display = 'none';
                             }
+                            statusHTML += `<span>${customStatusActivity.state || ''}</span>`;
+                            customStatusEl.innerHTML = statusHTML;
+                            customStatusEl.style.display = 'flex';
+                        } else {
+                            customStatusEl.style.display = 'none';
+                        }
 
 
-                            if (!previousData) {
-                                const badgesContainer = document.getElementById('discordBadges');
-                                let badgesHTML = '';
+                        const badgesContainer = document.getElementById('discordBadges');
+                        let badgesHTML = '';
 
-                                if (discord.discord_user.public_flags) {
-                                    const flags = discord.discord_user.public_flags;
+                        if (discord.discord_user.public_flags) {
+                            const flags = discord.discord_user.public_flags;
 
-                                    if (flags & (1 << 0)) {
-                                        badgesHTML += `<span class="badge discord-badge" title="Discord Staff">
-                                        <img src="https://cdn.discordapp.com/badge-icons/5e74e9b61934fc1f67c65515d1f7e60d.png" alt="Staff">
-                                    </span>`;
-                                    }
-
-                                    if (flags & (1 << 1)) {
-                                        badgesHTML += `<span class="badge discord-badge" title="Partnered Server Owner">
-                                        <img src="https://cdn.discordapp.com/badge-icons/3f9748e53446a137a052f3454e2de41e.png" alt="Partner">
-                                    </span>`;
-                                    }
-
-                                    if (flags & (1 << 2)) {
-                                        badgesHTML += `<span class="badge discord-badge" title="HypeSquad Events">
-                                        <img src="https://cdn.discordapp.com/badge-icons/bf01d1073931f921909045f3a39fd264.png" alt="HypeSquad Events">
-                                    </span>`;
-                                    }
-
-                                    if (flags & (1 << 3)) {
-                                        badgesHTML += `<span class="badge discord-badge" title="Bug Hunter Level 1">
-                                        <img src="https://cdn.discordapp.com/badge-icons/2717692c7dca7289b35297368a940dd0.png" alt="Bug Hunter">
-                                    </span>`;
-                                    }
-
-                                    if (flags & (1 << 6)) {
-                                        badgesHTML += `<span class="badge discord-badge" title="HypeSquad Bravery">
-                                        <img src="https://cdn.discordapp.com/badge-icons/8a88d63823d8a71cd5e390baa45efa02.png" alt="Bravery">
-                                    </span>`;
-                                    }
-
-                                    if (flags & (1 << 7)) {
-                                        badgesHTML += `<span class="badge discord-badge" title="HypeSquad Brilliance">
-                                        <img src="https://cdn.discordapp.com/badge-icons/011940fd013da3f7fb926e4a1cd2e618.png" alt="Brilliance">
-                                    </span>`;
-                                    }
-
-                                    if (flags & (1 << 8)) {
-                                        badgesHTML += `<span class="badge discord-badge" title="HypeSquad Balance">
-                                        <img src="https://cdn.discordapp.com/badge-icons/3aa41de486fa12454c3761e8e223442e.png" alt="Balance">
-                                    </span>`;
-                                    }
-
-                                    if (flags & (1 << 9)) {
-                                        badgesHTML += `<span class="badge discord-badge" title="Early Supporter">
-                                        <img src="https://cdn.discordapp.com/badge-icons/7060786766c9c840eb3019e725d2b358.png" alt="Early Supporter">
-                                    </span>`;
-                                    }
-
-                                    if (flags & (1 << 14)) {
-                                        badgesHTML += `<span class="badge discord-badge" title="Bug Hunter Level 2">
-                                        <img src="https://cdn.discordapp.com/badge-icons/848f79194d4be5ff5f81505cbd0ce1e6.png" alt="Bug Hunter Lv2">
-                                    </span>`;
-                                    }
-
-                                    if (flags & (1 << 17)) {
-                                        badgesHTML += `<span class="badge discord-badge" title="Early Verified Bot Developer">
-                                        <img src="https://cdn.discordapp.com/badge-icons/6bdc42827a38498929a4920da12695d9.png" alt="Bot Developer">
-                                    </span>`;
-                                    }
-
-                                    if (flags & (1 << 18)) {
-                                        badgesHTML += `<span class="badge discord-badge" title="Discord Certified Moderator">
-                                        <img src="https://cdn.discordapp.com/badge-icons/fee1624003e2fee35cb398e125dc479b.png" alt="Moderator">
-                                    </span>`;
-                                    }
-
-                                    if (flags & (1 << 20)) {
-                                        badgesHTML += `<span class="badge discord-badge" title="AutoMod (Moderator Programs Alumni)">
-                                        <img src="https://cdn.discordapp.com/badge-icons/f2459b691ac7453ed6039bbcfaccbfcd.png" alt="AutoMod">
-                                    </span>`;
-                                    }
-
-                                    if (flags & (1 << 22)) {
-                                        badgesHTML += `<span class="badge discord-badge" title="Active Developer">
-                                        <img src="https://cdn.discordapp.com/badge-icons/6bdc42827a38498929a4920da12695d9.png" alt="Active Developer">
-                                    </span>`;
-                                    }
-                                }
-
-                                badgesHTML += `<span class="badge discord-badge" title="Completed a Discord Quest">
-                                <img src="https://cdn.discordapp.com/badge-icons/7d9ae358c8c5e118768335dbe68b4fb8.png" alt="Quest">
+                            if (flags & (1 << 0)) {
+                                badgesHTML += `<span class="badge discord-badge" title="Discord Staff">
+                                <img src="https://cdn.discordapp.com/badge-icons/5e74e9b61934fc1f67c65515d1f7e60d.png" alt="Staff">
                             </span>`;
+                            }
 
+
+                            if (flags & (1 << 1)) {
+                                badgesHTML += `<span class="badge discord-badge" title="Partnered Server Owner">
+                                <img src="https://cdn.discordapp.com/badge-icons/3f9748e53446a137a052f3454e2de41e.png" alt="Partner">
+                            </span>`;
+                            }
+
+
+                            if (flags & (1 << 2)) {
+                                badgesHTML += `<span class="badge discord-badge" title="HypeSquad Events">
+                                <img src="https://cdn.discordapp.com/badge-icons/bf01d1073931f921909045f3a39fd264.png" alt="HypeSquad Events">
+                            </span>`;
+                            }
+
+
+                            if (flags & (1 << 3)) {
+                                badgesHTML += `<span class="badge discord-badge" title="Bug Hunter Level 1">
+                                <img src="https://cdn.discordapp.com/badge-icons/2717692c7dca7289b35297368a940dd0.png" alt="Bug Hunter">
+                            </span>`;
+                            }
+
+
+                            if (flags & (1 << 6)) {
+                                badgesHTML += `<span class="badge discord-badge" title="HypeSquad Bravery">
+                                <img src="https://cdn.discordapp.com/badge-icons/8a88d63823d8a71cd5e390baa45efa02.png" alt="Bravery">
+                            </span>`;
+                            }
+
+
+                            if (flags & (1 << 7)) {
+                                badgesHTML += `<span class="badge discord-badge" title="HypeSquad Brilliance">
+                                <img src="https://cdn.discordapp.com/badge-icons/011940fd013da3f7fb926e4a1cd2e618.png" alt="Brilliance">
+                            </span>`;
+                            }
+
+
+                            if (flags & (1 << 8)) {
+                                badgesHTML += `<span class="badge discord-badge" title="HypeSquad Balance">
+                                <img src="https://cdn.discordapp.com/badge-icons/3aa41de486fa12454c3761e8e223442e.png" alt="Balance">
+                            </span>`;
+                            }
+
+
+                            if (flags & (1 << 9)) {
+                                badgesHTML += `<span class="badge discord-badge" title="Early Supporter">
+                                <img src="https://cdn.discordapp.com/badge-icons/7060786766c9c840eb3019e725d2b358.png" alt="Early Supporter">
+                            </span>`;
+                            }
+
+
+                            if (flags & (1 << 14)) {
+                                badgesHTML += `<span class="badge discord-badge" title="Bug Hunter Level 2">
+                                <img src="https://cdn.discordapp.com/badge-icons/848f79194d4be5ff5f81505cbd0ce1e6.png" alt="Bug Hunter Lv2">
+                            </span>`;
+                            }
+
+
+                            if (flags & (1 << 17)) {
+                                badgesHTML += `<span class="badge discord-badge" title="Early Verified Bot Developer">
+                                <img src="https://cdn.discordapp.com/badge-icons/6bdc42827a38498929a4920da12695d9.png" alt="Bot Developer">
+                            </span>`;
+                            }
+
+
+                            if (flags & (1 << 18)) {
+                                badgesHTML += `<span class="badge discord-badge" title="Discord Certified Moderator">
+                                <img src="https://cdn.discordapp.com/badge-icons/fee1624003e2fee35cb398e125dc479b.png" alt="Moderator">
+                            </span>`;
+                            }
+
+                            if (flags & (1 << 20)) {
+                                badgesHTML += `<span class="badge discord-badge" title="AutoMod (Moderator Programs Alumni)">
+                                <img src="https://cdn.discordapp.com/badge-icons/f2459b691ac7453ed6039bbcfaccbfcd.png" alt="AutoMod">
+                            </span>`;
+                            }
+
+
+                            if (flags & (1 << 22)) {
                                 badgesHTML += `<span class="badge discord-badge" title="Active Developer">
                                 <img src="https://cdn.discordapp.com/badge-icons/6bdc42827a38498929a4920da12695d9.png" alt="Active Developer">
                             </span>`;
-
-                                badgesContainer.innerHTML = badgesHTML;
-                            }
-
-
-                            const statusEl = document.getElementById('discordStatus');
-                            const realActivities = discord.activities.filter(a => a.type !== 4);
-
-                            if (discord.listening_to_spotify) {
-                                statusEl.innerHTML = `🎵 Listening to <strong>${discord.spotify.song}</strong> by <strong>${discord.spotify.artist}</strong>`;
-                                statusEl.style.display = 'block';
-                            } else if (realActivities.length > 0) {
-                                const activity = realActivities[0];
-                                if (activity.type === 0) {
-                                    statusEl.innerHTML = `🎮 Playing <strong>${activity.name}</strong>`;
-                                } else if (activity.type === 2) {
-                                    statusEl.innerHTML = `🎵 Listening to <strong>${activity.name}</strong>`;
-                                } else if (activity.type === 3) {
-                                    statusEl.innerHTML = `📺 Watching <strong>${activity.name}</strong>`;
-                                } else if (activity.type === 5) {
-                                    statusEl.innerHTML = `🏆 Competing in <strong>${activity.name}</strong>`;
-                                } else {
-                                    statusEl.innerHTML = `"${activity.name}"`;
-                                }
-                                statusEl.style.display = 'block';
-                            } else {
-                                statusEl.style.display = 'none';
                             }
                         }
 
-                        previousData = discord;
+                        badgesContainer.innerHTML = badgesHTML;
+
+
+                        badgesHTML += `<span class="badge discord-badge" title="Completed a Discord Quest">
+                        <img src="https://cdn.discordapp.com/badge-icons/7d9ae358c8c5e118768335dbe68b4fb8.png" alt="Quest">
+                    </span>`;
+
+
+                        badgesHTML += `<span class="badge discord-badge" title="Active Developer">
+                        <img src="https://cdn.discordapp.com/badge-icons/6bdc42827a38498929a4920da12695d9.png" alt="Active Developer">
+                    </span>`;
+
+                        badgesContainer.innerHTML = badgesHTML;
+
+                        const statusEl = document.getElementById('discordStatus');
+                        const realActivities = discord.activities.filter(a => a.type !== 4);
+
+                        if (discord.listening_to_spotify) {
+                            statusEl.innerHTML = `🎵 Listening to <strong>${discord.spotify.song}</strong> by <strong>${discord.spotify.artist}</strong>`;
+                        } else if (realActivities.length > 0) {
+                            const activity = realActivities[0];
+                            if (activity.type === 0) {
+                                statusEl.innerHTML = `🎮 Playing <strong>${activity.name}</strong>`;
+                            } else if (activity.type === 2) {
+                                statusEl.innerHTML = `🎵 Listening to <strong>${activity.name}</strong>`;
+                            } else if (activity.type === 3) {
+                                statusEl.innerHTML = `📺 Watching <strong>${activity.name}</strong>`;
+                            } else if (activity.type === 5) {
+                                statusEl.innerHTML = `🏆 Competing in <strong>${activity.name}</strong>`;
+                            } else {
+                                statusEl.innerHTML = `"${activity.name}"`;
+                            }
+                        } else {
+                            statusEl.style.display = 'none';
+                        }
+
+
                     }
                 } catch (error) {
                     console.error('Discord status fetch failed:', error);
@@ -1769,7 +1760,7 @@
             }
 
 
-            setInterval(updateDiscordStatus, 3000);
+            setInterval(updateDiscordStatus, 10000);
 
 
             function generateSkills() {
