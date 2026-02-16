@@ -1406,64 +1406,28 @@
 
         // ===== PROJECTS DATA - EASY TO MODIFY =====
         const projectsData = [{
-            name: "Discord Server Alpha",
+            name: "The Enclave",
             type: "Community",
             category: "community",
-            description: "A thriving community for developers and tech enthusiasts. Join us to discuss code, share projects, and collaborate.",
-            banner: "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?w=800&h=300&fit=crop",
-            icon: "https://cdn.discordapp.com/icons/123456789/a_1234567890abcdef.png",
-            link: "https://discord.gg/yourserver",
+            description: "A Server For Alt People, Co-Founded by me.",
+            banner: "https://cdn.discordapp.com/splashes/1284296921653182484/93d225b6d079d82b95e03eb32dca0045.jpg?size=3072",
+            icon: "https://cdn.discordapp.com/icons/1284296921653182484/e036817ec040394ebce7b45ac26525a2.webp?size=80&quality=lossless",
+            link: "https://discord.gg/udg76NBr",
             stats: {
-                members: "2.5K",
-                online: "450"
+                members: "202",
+                online: "32"
             }
         }, {
-            name: "Web Portfolio Engine",
-            type: "Web Development",
-            category: "web",
-            description: "An advanced portfolio builder with custom animations, dark themes, and seamless integrations. Built with React and modern web technologies.",
-            banner: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=300&fit=crop",
-            icon: "https://via.placeholder.com/60x60/1a1a1a/ffffff?text=WPE",
-            link: "https://github.com/yourusername/project",
-            stats: {
-                stars: "1.2K",
-                forks: "234"
-            }
-        }, {
-            name: "Reverse Engineering Tools",
+            name: "Valkyrie Anti-Cheat",
             type: "Reverse Engineering",
             category: "reverse",
-            description: "A collection of powerful tools for binary analysis, decompilation, and security research. Open source and community driven.",
-            banner: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=300&fit=crop",
-            icon: "https://via.placeholder.com/60x60/0a0a0a/00ff00?text=RET",
-            link: "https://github.com/yourusername/rettools",
+            description: "Legacy anti-cheat system for Roblox games that I originally founded. Stopped active development with my friend, but it pioneered exploit detection and memory protection techniques.",
+            banner: "https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/optimized/5X/5/9/5/a/595a290a19d7582406c54f38d0425ac1ace839af_2_690x252.jpeg",
+            icon: "https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/5X/3/b/a/f/3bafee16e93dc3abde95cb1dbaa7abb05470b869.jpeg",
+            link: "https://github.com/skullaf/Valkyrie-AC",
             stats: {
-                downloads: "15K",
-                version: "v2.4"
-            }
-        }, {
-            name: "Gaming Community Hub",
-            type: "Community",
-            category: "community",
-            description: "The ultimate gaming community with tournaments, events, and exclusive perks. Join thousands of gamers worldwide.",
-            banner: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&h=300&fit=crop",
-            icon: "https://via.placeholder.com/60x60/1a1a1a/ff0000?text=GCH",
-            link: "https://discord.gg/gamingcommunity",
-            stats: {
-                members: "8.3K",
-                online: "1.2K"
-            }
-        }, {
-            name: "Mobile Fitness Tracker",
-            type: "App Development",
-            category: "app",
-            description: "Cross-platform fitness tracking app with real-time analytics, workout plans, and social features. Built with React Native.",
-            banner: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=300&fit=crop",
-            icon: "https://via.placeholder.com/60x60/1a1a1a/00ff00?text=FIT",
-            link: "https://github.com/yourusername/fitness-app",
-            stats: {
-                downloads: "50K",
-                rating: "4.8★"
+                protected: "120+",
+                detections: "50K+"
             }
         }];
 
@@ -1757,11 +1721,6 @@
             }
         }
 
-
-        // Update every 10 seconds
-        setInterval(updateDiscordStatus, 10000);
-
-        // ===== GENERATE SKILLS =====
         function generateSkills() {
             const container = document.getElementById('skillsDisplay');
             if (!container) return;
