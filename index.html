@@ -12,7 +12,7 @@
             padding: 0;
             box-sizing: border-box;
             cursor: none !important;
-            /* Hide ALL default cursors */
+
         }
         
         body {
@@ -21,7 +21,7 @@
             color: #fff;
             overflow-x: hidden;
         }
-        /* Force hide default cursor on everything */
+
         
         *,
         *:hover,
@@ -473,7 +473,7 @@
             height: 22px;
             display: block;
         }
-        /* Tooltip for badges */
+        
         
         .badge.discord-badge::after {
             content: attr(title);
@@ -929,7 +929,7 @@
             color: #bbb;
             display: block;
         }
-        /* Modal with SMOOTH ANIMATIONS */
+
         
         .vinyl-modal {
             display: none;
@@ -1108,7 +1108,7 @@
 </head>
 
 <body>
-    <!-- Custom Cursor -->
+    
     <div id="customCursor"></div>
 
     <div class="flash" id="flash"></div>
@@ -1123,9 +1123,9 @@
         <div class="loading-text">Initializing</div>
     </div>
 
-    <!-- Profile Page -->
+   
     <div id="profile">
-        <!-- Header Navigation -->
+      
         <header class="header">
             <div class="nav-container">
                 <nav>
@@ -1140,7 +1140,7 @@
         </header>
 
         <div class="content">
-            <!-- About Section -->
+            
             <section class="page-section active" data-section="about">
                 <div class="about-container">
                     <div class="discord-card">
@@ -1156,7 +1156,7 @@
                                 <div class="custom-status" id="customStatus" style="display: none;"></div>
 
                                 <div class="discord-badges" id="discordBadges">
-                                    <!-- Discord badges will be populated here -->
+                                  
                                 </div>
                             </div>
                         </div>
@@ -1198,29 +1198,29 @@
         </div>
         </section>
 
-        <!-- Projects Section -->
+     
         <section class="page-section" data-section="projects">
             <div class="projects-container">
                 <div class="skills-header">
                     <h3 class="skills-title">My Skills</h3>
                     <div class="skills-display" id="skillsDisplay">
-                        <!-- Skills will be generated here -->
+                     
                     </div>
                 </div>
                 <div id="projectsContainer">
-                    <!-- Projects will be dynamically generated -->
+                  
                 </div>
             </div>
         </section>
 
-        <!-- Music Section -->
+      
         <section class="page-section" data-section="music">
             <div class="music-container" id="musicContainer">
-                <!-- Categories will be dynamically generated -->
+                
             </div>
         </section>
 
-        <!-- Contact Section -->
+      
         <section class="page-section" data-section="contact">
             <div class="contact-container">
                 <h2 class="contact-title">Get in Touch</h2>
@@ -1237,7 +1237,7 @@
             </div>
         </section>
 
-        <!-- Modal -->
+     
         <div class="vinyl-modal" id="vinylModal">
             <div class="modal-content">
                 <span class="modal-close" id="modalClose">×</span>
@@ -1247,14 +1247,14 @@
                     <h3 class="modal-artist" id="modalArtist"></h3>
 
                     <div class="youtube-player-wrapper">
-                        <!-- Spotify player will be inserted here -->
+                     
                     </div>
                 </div>
             </div>
         </div>
 
         <script>
-            // ===== SKILLS DATA =====
+            
             const skillsData = [{
                 name: "Web Development",
                 icon: `<svg fill="currentColor" viewBox="0 0 24 24"><path d="M14.6 16.6l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4zm-5.2 0L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4z"/></svg>`
@@ -1272,10 +1272,7 @@
                 icon: `<svg fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>`
             }];
 
-            // ===== MUSIC DATA - EASY TO MODIFY =====
-            // Use Spotify URIs (spotify:track:TRACKID or spotify:album:ALBUMID)
-            // Get them by: Right-click song/album in Spotify -> Share -> Copy Spotify URI
-            // Set isOnSpotify to false if the album isn't available on Spotify
+       
             const musicData = {
                 "Black Metal": [{
                     artist: "Burzum",
@@ -1420,7 +1417,7 @@
                 }]
             };
 
-            // ===== PROJECTS DATA - EASY TO MODIFY =====
+           
             const projectsData = [{
                 name: "The Enclave",
                 type: "Community",
@@ -1454,7 +1451,7 @@
 
             }];
 
-            // ===== CUSTOM CURSOR =====
+            
             const customCursor = document.getElementById('customCursor');
             let mouseX = 0,
                 mouseY = 0,
@@ -1484,7 +1481,7 @@
             }
             animateCursor();
 
-            // ===== TERMINAL TYPING =====
+            
             const terminal = document.getElementById('terminal');
             const flash = document.getElementById('flash');
             const loadingScreen = document.getElementById('loadingScreen');
@@ -1576,7 +1573,7 @@
                 type();
             }
 
-            // ===== LANYARD DISCORD INTEGRATION =====
+            
             const DISCORD_ID = '1070769895589019780';
 
             async function updateDiscordStatus() {
@@ -1587,7 +1584,7 @@
                     if (data.success) {
                         const discord = data.data;
 
-                        // Update avatar
+                        
                         const avatarUrl = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${discord.discord_user.avatar}.${discord.discord_user.avatar.startsWith('a_') ? 'gif' : 'png'}?size=256`;
                         const avatarImg = document.createElement('img');
                         avatarImg.src = avatarUrl;
@@ -1597,18 +1594,18 @@
                         avatarContainer.innerHTML = '';
                         avatarContainer.appendChild(avatarImg);
 
-                        // Re-add status indicator on top
+                        
                         const statusIndicator = document.createElement('div');
                         statusIndicator.className = `status-indicator ${discord.discord_status}`;
                         statusIndicator.id = 'statusIndicator';
                         avatarContainer.appendChild(statusIndicator);
 
-                        // Update display name and username
+                        
                         const displayName = discord.discord_user.global_name || discord.discord_user.username;
                         document.getElementById('discordDisplayName').textContent = displayName;
                         document.getElementById('discordUsername').textContent = `@${discord.discord_user.username}`;
 
-                        // Handle custom status (not activity)
+                        
                         const customStatusEl = document.getElementById('customStatus');
                         const customStatusActivity = discord.activities.find(a => a.type === 4);
 
@@ -1628,98 +1625,96 @@
                             customStatusEl.style.display = 'none';
                         }
 
-                        // Update badges with ACTUAL DISCORD ICONS
+                       
                         const badgesContainer = document.getElementById('discordBadges');
                         let badgesHTML = '';
 
                         if (discord.discord_user.public_flags) {
                             const flags = discord.discord_user.public_flags;
 
-                            // Staff
                             if (flags & (1 << 0)) {
                                 badgesHTML += `<span class="badge discord-badge" title="Discord Staff">
                                 <img src="https://cdn.discordapp.com/badge-icons/5e74e9b61934fc1f67c65515d1f7e60d.png" alt="Staff">
                             </span>`;
                             }
 
-                            // Partner
+                  
                             if (flags & (1 << 1)) {
                                 badgesHTML += `<span class="badge discord-badge" title="Partnered Server Owner">
                                 <img src="https://cdn.discordapp.com/badge-icons/3f9748e53446a137a052f3454e2de41e.png" alt="Partner">
                             </span>`;
                             }
 
-                            // HypeSquad Events
+                           
                             if (flags & (1 << 2)) {
                                 badgesHTML += `<span class="badge discord-badge" title="HypeSquad Events">
                                 <img src="https://cdn.discordapp.com/badge-icons/bf01d1073931f921909045f3a39fd264.png" alt="HypeSquad Events">
                             </span>`;
                             }
 
-                            // Bug Hunter Level 1
+                           
                             if (flags & (1 << 3)) {
                                 badgesHTML += `<span class="badge discord-badge" title="Bug Hunter Level 1">
                                 <img src="https://cdn.discordapp.com/badge-icons/2717692c7dca7289b35297368a940dd0.png" alt="Bug Hunter">
                             </span>`;
                             }
 
-                            // HypeSquad Bravery
+                      
                             if (flags & (1 << 6)) {
                                 badgesHTML += `<span class="badge discord-badge" title="HypeSquad Bravery">
                                 <img src="https://cdn.discordapp.com/badge-icons/8a88d63823d8a71cd5e390baa45efa02.png" alt="Bravery">
                             </span>`;
                             }
 
-                            // HypeSquad Brilliance
+                        
                             if (flags & (1 << 7)) {
                                 badgesHTML += `<span class="badge discord-badge" title="HypeSquad Brilliance">
                                 <img src="https://cdn.discordapp.com/badge-icons/011940fd013da3f7fb926e4a1cd2e618.png" alt="Brilliance">
                             </span>`;
                             }
 
-                            // HypeSquad Balance
+                          
                             if (flags & (1 << 8)) {
                                 badgesHTML += `<span class="badge discord-badge" title="HypeSquad Balance">
                                 <img src="https://cdn.discordapp.com/badge-icons/3aa41de486fa12454c3761e8e223442e.png" alt="Balance">
                             </span>`;
                             }
 
-                            // Early Supporter
+                          
                             if (flags & (1 << 9)) {
                                 badgesHTML += `<span class="badge discord-badge" title="Early Supporter">
                                 <img src="https://cdn.discordapp.com/badge-icons/7060786766c9c840eb3019e725d2b358.png" alt="Early Supporter">
                             </span>`;
                             }
 
-                            // Bug Hunter Level 2
+                       
                             if (flags & (1 << 14)) {
                                 badgesHTML += `<span class="badge discord-badge" title="Bug Hunter Level 2">
                                 <img src="https://cdn.discordapp.com/badge-icons/848f79194d4be5ff5f81505cbd0ce1e6.png" alt="Bug Hunter Lv2">
                             </span>`;
                             }
 
-                            // Early Verified Bot Developer (Legacy Developer)
+                            
                             if (flags & (1 << 17)) {
                                 badgesHTML += `<span class="badge discord-badge" title="Early Verified Bot Developer">
                                 <img src="https://cdn.discordapp.com/badge-icons/6bdc42827a38498929a4920da12695d9.png" alt="Bot Developer">
                             </span>`;
                             }
 
-                            // Discord Certified Moderator
+                           
                             if (flags & (1 << 18)) {
                                 badgesHTML += `<span class="badge discord-badge" title="Discord Certified Moderator">
                                 <img src="https://cdn.discordapp.com/badge-icons/fee1624003e2fee35cb398e125dc479b.png" alt="Moderator">
                             </span>`;
                             }
 
-                            // Automod (Apprentice) - Flag 20
                             if (flags & (1 << 20)) {
                                 badgesHTML += `<span class="badge discord-badge" title="AutoMod (Moderator Programs Alumni)">
                                 <img src="https://cdn.discordapp.com/badge-icons/f2459b691ac7453ed6039bbcfaccbfcd.png" alt="AutoMod">
                             </span>`;
                             }
 
-                            // Active Developer - Flag 22
+                           
                             if (flags & (1 << 22)) {
                                 badgesHTML += `<span class="badge discord-badge" title="Active Developer">
                                 <img src="https://cdn.discordapp.com/badge-icons/6bdc42827a38498929a4920da12695d9.png" alt="Active Developer">
@@ -1729,22 +1724,18 @@
 
                         badgesContainer.innerHTML = badgesHTML;
 
-                        // ADD CUSTOM BADGES (HypeSquad, Quest, Active Developer)
-                        // These are added manually as requested
-
-                        // Quest Badge
+   
                         badgesHTML += `<span class="badge discord-badge" title="Completed a Discord Quest">
                         <img src="https://cdn.discordapp.com/badge-icons/7d9ae358c8c5e118768335dbe68b4fb8.png" alt="Quest">
                     </span>`;
 
-                        // Active Developer Badge
+                        
                         badgesHTML += `<span class="badge discord-badge" title="Active Developer">
                         <img src="https://cdn.discordapp.com/badge-icons/6bdc42827a38498929a4920da12695d9.png" alt="Active Developer">
                     </span>`;
 
                         badgesContainer.innerHTML = badgesHTML;
 
-                        // Update activity (filter out custom status)
                         const statusEl = document.getElementById('discordStatus');
                         const realActivities = discord.activities.filter(a => a.type !== 4);
 
@@ -1767,8 +1758,7 @@
                             statusEl.style.display = 'none';
                         }
 
-                        // Update social links with connection usernames
-                        // updateSocialConnections(discord);
+                      
                     }
                 } catch (error) {
                     console.error('Discord status fetch failed:', error);
@@ -1776,10 +1766,10 @@
                 }
             }
 
-            // Update every 10 seconds
+      
             setInterval(updateDiscordStatus, 10000);
 
-            // ===== GENERATE SKILLS =====
+       
             function generateSkills() {
                 const container = document.getElementById('skillsDisplay');
                 if (!container) return;
@@ -1795,7 +1785,7 @@
                 });
             }
 
-            // ===== GENERATE PROJECTS =====
+          
             function generateProjects() {
                 const container = document.getElementById('projectsContainer');
                 if (!container) return;
@@ -1850,7 +1840,6 @@
                 container.appendChild(grid);
             }
 
-            // ===== GENERATE MUSIC CATEGORIES =====
             function generateMusicCategories() {
                 const container = document.getElementById('musicContainer');
                 container.innerHTML = '';
@@ -1895,11 +1884,9 @@
                     container.appendChild(categoryDiv);
                 });
 
-                // Attach click handlers after generation
                 attachVinylHandlers();
             }
 
-            // ===== SPOTIFY PLAYER SETUP =====
             const modal = document.getElementById('vinylModal');
             const modalClose = document.getElementById('modalClose');
             const modalImage = document.getElementById('modalImage');
@@ -1927,13 +1914,12 @@
                 modalTitle.textContent = album;
                 modalArtist.textContent = artist;
 
-                // Create Spotify embed or message
+              
                 const playerContainer = document.querySelector('.youtube-player-wrapper');
 
                 if (isOnSpotify) {
-                    // Extract Spotify ID from URI (spotify:album:ID or spotify:track:ID)
                     const spotifyId = spotifyUri.split(':')[2];
-                    const spotifyType = spotifyUri.split(':')[1]; // album or track
+                    const spotifyType = spotifyUri.split(':')[1]; 
 
                     playerContainer.innerHTML = `
                     <iframe 
@@ -1995,7 +1981,7 @@
                 }
             });
 
-            // ===== NAVIGATION =====
+            
             const navLinks = document.querySelectorAll('.nav-link');
             const sections = document.querySelectorAll('.page-section');
 
@@ -2009,11 +1995,12 @@
                 });
             });
 
-            // ===== START =====
+          
             window.addEventListener('load', () => {
                 setTimeout(startTyping, 500);
             });
         </script>
 </body>
+
 
 </html>
